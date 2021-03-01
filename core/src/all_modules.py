@@ -322,6 +322,14 @@ apps.debug
 import apps.debug
 apps.debug.load_device
 import apps.debug.load_device
+apps.hedera
+import apps.hedera
+apps.hedera.get_pk
+import apps.hedera.get_pk
+apps.hedera.layout
+import apps.hedera.layout
+apps.hedera.sign_tx
+import apps.hedera.sign_tx
 apps.homescreen
 import apps.homescreen
 apps.homescreen.homescreen

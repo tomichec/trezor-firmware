@@ -103,6 +103,10 @@ if not utils.BITCOIN_ONLY:
     EthereumTypedDataValueRequest = 467
     EthereumTypedDataValueAck = 468
     EthereumTypedDataSignature = 469
+    HederaGetPublicKey = 804
+    HederaSignTx = 805
+    HederaPublicKey = 806
+    HederaSignedTx = 807
     NEMGetAddress = 67
     NEMAddress = 68
     NEMSignTx = 69
