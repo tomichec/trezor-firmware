@@ -50,6 +50,7 @@
 #include "sdcard.h"
 #include "supervise.h"
 #include "touch.h"
+#include "zkp_context.h"
 
 int main(void) {
   random_delays_init();
@@ -68,6 +69,8 @@ int main(void) {
 #ifdef SYSTEM_VIEW
   enable_systemview();
 #endif
+
+  zkp_context_init();
 
 #if TREZOR_MODEL == T
 #if PRODUCTION

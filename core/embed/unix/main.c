@@ -50,6 +50,7 @@
 #include "py/repl.h"
 #include "py/runtime.h"
 #include "py/stackctrl.h"
+#include "zkp_context.h"
 
 #include "common.h"
 
@@ -473,6 +474,8 @@ MP_NOINLINE int main_(int argc, char **argv);
 
 int main(int argc, char **argv) {
   collect_hw_entropy();
+
+  zkp_context_init();
 
 #if MICROPY_PY_THREAD
   mp_thread_init();
