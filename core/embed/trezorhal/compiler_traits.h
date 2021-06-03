@@ -22,7 +22,7 @@
 
 /*
  * Avoid accidental build with gcc versions having broken stack protector.
- * Affected versions range 9.2.1 - 10.2
+ * Affected versions range 9.2.1 - 10.2.0
  */
 #if defined(__GNUC__) && !defined(__llvm__)
 
