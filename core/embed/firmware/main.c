@@ -37,6 +37,7 @@
 
 #include "bl_check.h"
 #include "common.h"
+#include "compiler_traits.h"
 #include "display.h"
 #include "flash.h"
 #include "mpu.h"
@@ -50,20 +51,6 @@
 #include "sdcard.h"
 #include "supervise.h"
 #include "touch.h"
-
-/*
- * Avoid accidental build with gcc versions having broken stack protector 9.2.1 - 10.2
- */
-#if defined(__GNUC__) && !defined(__llvm__)
-
-#define GCC_VERSION (__GNUC__ * 10000 \
-                     + __GNUC_MINOR__ * 100 \
-                     + __GNUC_PATCHLEVEL__)
-
-#if GCC_VERSION >= 90201 && GCC_VERSION <= 100200
-#error "ARM GCC versions 9.2.1 - 10.2 have broken stack smash protector, preventing build"
-#endif
-#endif
 
 int main(void) {
   random_delays_init();
