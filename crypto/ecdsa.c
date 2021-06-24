@@ -763,12 +763,19 @@ int ecdsa_sign_digest(const ecdsa_curve *curve, const uint8_t *priv_key,
   return -1;
 }
 
+// returns 0 on success
 int ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
                            uint8_t *pub_key) {
   curve_point R = {0};
   bignum256 k = {0};
 
   bn_read_be(priv_key, &k);
+  if (bn_is_zero(&k) || !bn_is_less(&k, &curve->order)) {
+    // private key is invalid
+    memzero(&k, sizeof(k));
+    return -1;
+  }
+
   // compute k*G
   scalar_multiply(curve, &k, &R);
   pub_key[0] = 0x02 | (R.y.val[0] & 0x01);
@@ -778,12 +785,19 @@ int ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
   return 0;
 }
 
+// returns 0 on success
 int ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
                            uint8_t *pub_key) {
   curve_point R = {0};
   bignum256 k = {0};
 
   bn_read_be(priv_key, &k);
+  if (bn_is_zero(&k) || !bn_is_less(&k, &curve->order)) {
+    // private key is invalid
+    memzero(&k, sizeof(k));
+    return -1;
+  }
+
   // compute k*G
   scalar_multiply(curve, &k, &R);
   pub_key[0] = 0x04;
