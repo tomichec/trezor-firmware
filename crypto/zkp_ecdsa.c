@@ -17,9 +17,10 @@
 // curve has to be &secp256k1
 // private_key_bytes has 32 bytes
 // public_key_bytes has 32 bytes
-void zkp_ecdsa_get_public_key33(const ecdsa_curve *curve,
-                                const uint8_t *private_key_bytes,
-                                uint8_t *public_key_bytes) {
+// returns 0 on success
+int zkp_ecdsa_get_public_key33(const ecdsa_curve *curve,
+                               const uint8_t *private_key_bytes,
+                               uint8_t *public_key_bytes) {
   assert(curve == &secp256k1);
   int result = 0;
 
@@ -48,16 +49,17 @@ void zkp_ecdsa_get_public_key33(const ecdsa_curve *curve,
   }
 
   memzero(&public_key, sizeof(public_key));
-  assert(result == 0);
+  return result;
 }
 
 // ECDSA uncompressed public key derivation
 // curve has to be &secp256k1
 // private_key_bytes has 32 bytes
 // public_key_bytes has 65 bytes
-void zkp_ecdsa_get_public_key65(const ecdsa_curve *curve,
-                                const uint8_t *private_key_bytes,
-                                uint8_t *public_key_bytes) {
+// returns 0 on success
+int zkp_ecdsa_get_public_key65(const ecdsa_curve *curve,
+                               const uint8_t *private_key_bytes,
+                               uint8_t *public_key_bytes) {
   assert(curve == &secp256k1);
   int result = 0;
 
@@ -86,7 +88,7 @@ void zkp_ecdsa_get_public_key65(const ecdsa_curve *curve,
   }
 
   memzero(&public_key, sizeof(public_key));
-  assert(result == 0);
+  return result;
 }
 
 // ECDSA signing
