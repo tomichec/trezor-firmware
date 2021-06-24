@@ -3432,10 +3432,11 @@ END_TEST
 static void test_ecdsa_get_public_key33_helper(
     void (*ecdsa_get_public_key33_fn)(const ecdsa_curve *, const uint8_t *,
                                       uint8_t *)) {
-  uint8_t privkey[32];
-  uint8_t pubkey[65];
+  uint8_t privkey[32] = {0};
+  uint8_t pubkey[65] = {0};
   const ecdsa_curve *curve = &secp256k1;
 
+  // random privkey
   memcpy(
       privkey,
       fromhex(
@@ -3448,6 +3449,7 @@ static void test_ecdsa_get_public_key33_helper(
           "0232b062e9153f573c220b1be0299d6447e81577274bf11a7c08dff71384c6b6ec"),
       33);
 
+  // minus the random privkey
   memcpy(
       privkey,
       fromhex(
@@ -3474,10 +3476,11 @@ END_TEST
 static void test_ecdsa_get_public_key65_helper(
     void (*ecdsa_get_public_key65_fn)(const ecdsa_curve *, const uint8_t *,
                                       uint8_t *)) {
-  uint8_t privkey[32];
-  uint8_t pubkey[65];
+  uint8_t privkey[32] = {0};
+  uint8_t pubkey[65] = {0};
   const ecdsa_curve *curve = &secp256k1;
 
+  // random privkey
   memcpy(
       privkey,
       fromhex(
