@@ -644,6 +644,7 @@ int ecdh_multiply(const ecdsa_curve *curve, const uint8_t *priv_key,
 
 // msg is a data to be signed
 // msg_len is the message length
+// returns 0 on success
 int ecdsa_sign(const ecdsa_curve *curve, HasherType hasher_sign,
                const uint8_t *priv_key, const uint8_t *msg, uint32_t msg_len,
                uint8_t *sig, uint8_t *pby,
@@ -661,6 +662,7 @@ int ecdsa_sign(const ecdsa_curve *curve, HasherType hasher_sign,
 // digest is 32 bytes of digest
 // is_canonical is an optional function that checks if the signature
 // conforms to additional coin-specific rules.
+// returns 0 on success
 int ecdsa_sign_digest(const ecdsa_curve *curve, const uint8_t *priv_key,
                       const uint8_t *digest, uint8_t *sig, uint8_t *pby,
                       int (*is_canonical)(uint8_t by, uint8_t sig[64])) {
@@ -669,6 +671,13 @@ int ecdsa_sign_digest(const ecdsa_curve *curve, const uint8_t *priv_key,
   bignum256 k = {0}, z = {0}, randk = {0};
   bignum256 *s = &R.y;
   uint8_t by;  // signature recovery byte
+
+  bn_read_be(priv_key, s);
+  if (bn_is_zero(s) || !bn_is_less(s, &curve->order)) {
+    // private key is invalid
+    memzero(s, sizeof(s));
+    return -1;
+  }
 
 #if USE_RFC6979
   rfc6979_state rng = {0};
