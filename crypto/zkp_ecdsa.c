@@ -31,7 +31,7 @@ int zkp_ecdsa_get_public_key33(const ecdsa_curve *curve,
     secp256k1_context_writeable_randomize(context_writeable);
     if (secp256k1_ec_pubkey_create(context_writeable, &public_key,
                                    private_key_bytes) != 1) {
-      result = 1;
+      result = -1;
     }
     zkp_context_release_writeable();
   }
@@ -44,7 +44,7 @@ int zkp_ecdsa_get_public_key33(const ecdsa_curve *curve,
         SECP256K1_EC_COMPRESSED);
 
     if (returned != 1 || written != 33) {
-      result = 1;
+      result = -1;
     }
   }
 
@@ -70,7 +70,7 @@ int zkp_ecdsa_get_public_key65(const ecdsa_curve *curve,
     secp256k1_context_writeable_randomize(context_writeable);
     if (secp256k1_ec_pubkey_create(context_writeable, &public_key,
                                    private_key_bytes) != 1) {
-      result = 1;
+      result = -1;
     }
     zkp_context_release_writeable();
   }
@@ -83,7 +83,7 @@ int zkp_ecdsa_get_public_key65(const ecdsa_curve *curve,
         SECP256K1_EC_UNCOMPRESSED);
 
     if (returned != 1 || written != 65) {
-      result = 1;
+      result = -1;
     }
   }
 
@@ -115,7 +115,7 @@ int zkp_ecdsa_sign_digest(
     if (secp256k1_ecdsa_sign_recoverable(ctx_writeable, &recoverable_signature,
                                          digest, private_key_bytes, NULL,
                                          NULL) != 1) {
-      result = 1;
+      result = -1;
     }
     zkp_context_release_writeable();
   }
@@ -126,7 +126,7 @@ int zkp_ecdsa_sign_digest(
     if (secp256k1_ecdsa_recoverable_signature_serialize_compact(
             context_read_only, signature_bytes, &recid,
             &recoverable_signature) != 1) {
-      result = 1;
+      result = -1;
     }
     if (pby != NULL) {
       *pby = (uint8_t)recid;
