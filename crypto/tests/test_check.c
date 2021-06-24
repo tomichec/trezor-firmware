@@ -3429,9 +3429,8 @@ START_TEST(test_bip32_decred_vector_2) {
 }
 END_TEST
 
-static void test_ecdsa_get_public_key33_helper(
-    void (*ecdsa_get_public_key33_fn)(const ecdsa_curve *, const uint8_t *,
-                                      uint8_t *)) {
+static void test_ecdsa_get_public_key33_helper(int (*ecdsa_get_public_key33_fn)(
+    const ecdsa_curve *, const uint8_t *, uint8_t *)) {
   uint8_t privkey[32] = {0};
   uint8_t pubkey[65] = {0};
   const ecdsa_curve *curve = &secp256k1;
@@ -3473,9 +3472,8 @@ START_TEST(test_zkp_ecdsa_get_public_key33) {
 }
 END_TEST
 
-static void test_ecdsa_get_public_key65_helper(
-    void (*ecdsa_get_public_key65_fn)(const ecdsa_curve *, const uint8_t *,
-                                      uint8_t *)) {
+static void test_ecdsa_get_public_key65_helper(int (*ecdsa_get_public_key65_fn)(
+    const ecdsa_curve *, const uint8_t *, uint8_t *)) {
   uint8_t privkey[32] = {0};
   uint8_t pubkey[65] = {0};
   const ecdsa_curve *curve = &secp256k1;

@@ -88,10 +88,10 @@ int ecdsa_sign(const ecdsa_curve *curve, HasherType hasher_sign,
 int ecdsa_sign_digest(const ecdsa_curve *curve, const uint8_t *priv_key,
                       const uint8_t *digest, uint8_t *sig, uint8_t *pby,
                       int (*is_canonical)(uint8_t by, uint8_t sig[64]));
-void ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
-                            uint8_t *pub_key);
-void ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
-                            uint8_t *pub_key);
+int ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
+                           uint8_t *pub_key);
+int ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
+                           uint8_t *pub_key);
 void ecdsa_get_pubkeyhash(const uint8_t *pub_key, HasherType hasher_pubkey,
                           uint8_t *pubkeyhash);
 void ecdsa_get_address_raw(const uint8_t *pub_key, uint32_t version,

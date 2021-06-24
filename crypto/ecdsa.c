@@ -763,8 +763,8 @@ int ecdsa_sign_digest(const ecdsa_curve *curve, const uint8_t *priv_key,
   return -1;
 }
 
-void ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
-                            uint8_t *pub_key) {
+int ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
+                           uint8_t *pub_key) {
   curve_point R = {0};
   bignum256 k = {0};
 
@@ -775,10 +775,11 @@ void ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
   bn_write_be(&R.x, pub_key + 1);
   memzero(&R, sizeof(R));
   memzero(&k, sizeof(k));
+  return 0;
 }
 
-void ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
-                            uint8_t *pub_key) {
+int ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
+                           uint8_t *pub_key) {
   curve_point R = {0};
   bignum256 k = {0};
 
@@ -790,6 +791,7 @@ void ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
   bn_write_be(&R.y, pub_key + 33);
   memzero(&R, sizeof(R));
   memzero(&k, sizeof(k));
+  return 0;
 }
 
 int ecdsa_uncompress_pubkey(const ecdsa_curve *curve, const uint8_t *pub_key,
