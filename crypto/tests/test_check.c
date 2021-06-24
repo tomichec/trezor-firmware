@@ -3433,6 +3433,7 @@ static void test_ecdsa_get_public_key33_helper(int (*ecdsa_get_public_key33_fn)(
     const ecdsa_curve *, const uint8_t *, uint8_t *)) {
   uint8_t privkey[32] = {0};
   uint8_t pubkey[65] = {0};
+  int res = 0;
   const ecdsa_curve *curve = &secp256k1;
 
   // random privkey
@@ -3441,7 +3442,8 @@ static void test_ecdsa_get_public_key33_helper(int (*ecdsa_get_public_key33_fn)(
       fromhex(
           "c46f5b217f04ff28886a89d3c762ed84e5fa318d1c9a635d541131e69f1f49f5"),
       32);
-  ecdsa_get_public_key33_fn(curve, privkey, pubkey);
+  res = ecdsa_get_public_key33_fn(curve, privkey, pubkey);
+  ck_assert_int_eq(res, 0);
   ck_assert_mem_eq(
       pubkey,
       fromhex(
@@ -3454,12 +3456,31 @@ static void test_ecdsa_get_public_key33_helper(int (*ecdsa_get_public_key33_fn)(
       fromhex(
           "3b90a4de80fb00d77795762c389d1279d4b4ab5992ae3cde6bc12ca63116f74c"),
       32);
-  ecdsa_get_public_key33_fn(curve, privkey, pubkey);
+  res = ecdsa_get_public_key33_fn(curve, privkey, pubkey);
+  ck_assert_int_eq(res, 0);
   ck_assert_mem_eq(
       pubkey,
       fromhex(
           "0332b062e9153f573c220b1be0299d6447e81577274bf11a7c08dff71384c6b6ec"),
       33);
+
+  // privkey = 0
+  memcpy(
+      privkey,
+      fromhex(
+          "0000000000000000000000000000000000000000000000000000000000000000"),
+      32);
+  res = ecdsa_get_public_key33_fn(curve, privkey, pubkey);
+  ck_assert_int_eq(res, -1);
+
+  // privkey = order
+  memcpy(
+      privkey,
+      fromhex(
+          "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"),
+      32);
+  res = ecdsa_get_public_key33_fn(curve, privkey, pubkey);
+  ck_assert_int_eq(res, -1);
 }
 
 START_TEST(test_ecdsa_get_public_key33) {
@@ -3476,6 +3497,7 @@ static void test_ecdsa_get_public_key65_helper(int (*ecdsa_get_public_key65_fn)(
     const ecdsa_curve *, const uint8_t *, uint8_t *)) {
   uint8_t privkey[32] = {0};
   uint8_t pubkey[65] = {0};
+  int res = 0;
   const ecdsa_curve *curve = &secp256k1;
 
   // random privkey
@@ -3484,13 +3506,32 @@ static void test_ecdsa_get_public_key65_helper(int (*ecdsa_get_public_key65_fn)(
       fromhex(
           "c46f5b217f04ff28886a89d3c762ed84e5fa318d1c9a635d541131e69f1f49f5"),
       32);
-  ecdsa_get_public_key65_fn(curve, privkey, pubkey);
+  res = ecdsa_get_public_key65_fn(curve, privkey, pubkey);
+  ck_assert_int_eq(res, 0);
   ck_assert_mem_eq(
       pubkey,
       fromhex(
           "0432b062e9153f573c220b1be0299d6447e81577274bf11a7c08dff71384c6b6ec"
           "179ca56b637a57e0fcd28cefa10c9433dc30532682647f4daa053d43d5cc960a"),
       65);
+
+  // privkey = 0
+  memcpy(
+      privkey,
+      fromhex(
+          "0000000000000000000000000000000000000000000000000000000000000000"),
+      32);
+  res = ecdsa_get_public_key65_fn(curve, privkey, pubkey);
+  ck_assert_int_eq(res, -1);
+
+  // privkey = order
+  memcpy(
+      privkey,
+      fromhex(
+          "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"),
+      32);
+  res = ecdsa_get_public_key65_fn(curve, privkey, pubkey);
+  ck_assert_int_eq(res, -1);
 }
 
 START_TEST(test_ecdsa_get_public_key65) {
