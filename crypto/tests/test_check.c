@@ -3703,6 +3703,50 @@ START_TEST(test_zkp_ecdsa_recover_pub_from_sig) {
 }
 END_TEST
 
+static void test_ecdsa_sign_digest_helper(int (*ecdsa_sign_digest_fn)(
+    const ecdsa_curve *, const uint8_t *, const uint8_t *, uint8_t *, uint8_t *,
+    int (*)(uint8_t, uint8_t *))) {
+  const ecdsa_curve *curve = &secp256k1;
+  uint8_t digest[64] = {0};
+  uint8_t priv_key[64] = {0};
+  uint8_t sig[64] = {0};
+  int res = 0;
+
+  memcmp(
+      digest,
+      fromhex(
+          "93404f9b8fe7577e0347870141d849d8e936aad830cef123eac48393edbed20e"),
+      32);
+
+  // digest = 0
+  memcmp(
+      priv_key,
+      fromhex(
+          "0000000000000000000000000000000000000000000000000000000000000000"),
+      32);
+  res = ecdsa_sign_digest_fn(curve, priv_key, digest, sig, NULL, NULL);
+  ck_assert_int_eq(res, -1);
+
+  // digest = order
+  memcmp(
+      priv_key,
+      fromhex(
+          "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"),
+      32);
+  res = ecdsa_sign_digest_fn(curve, priv_key, digest, sig, NULL, NULL);
+  ck_assert_int_eq(res, -1);
+}
+
+START_TEST(test_ecdsa_sign_digest) {
+  test_ecdsa_sign_digest_helper(ecdsa_sign_digest);
+}
+END_TEST
+
+START_TEST(test_zkp_ecdsa_sign_digest) {
+  test_ecdsa_sign_digest_helper(zkp_ecdsa_sign_digest);
+}
+END_TEST
+
 static void test_ecdsa_verify_digest_helper(int (*ecdsa_verify_digest_fn)(
     const ecdsa_curve *, const uint8_t *, const uint8_t *, const uint8_t *)) {
   int res;
@@ -9410,10 +9454,12 @@ Suite *test_suite(void) {
   tcase_add_test(tc, test_ecdsa_get_public_key33);
   tcase_add_test(tc, test_ecdsa_get_public_key65);
   tcase_add_test(tc, test_ecdsa_recover_pub_from_sig);
+  tcase_add_test(tc, test_ecdsa_sign_digest);
   tcase_add_test(tc, test_ecdsa_verify_digest);
   tcase_add_test(tc, test_zkp_ecdsa_get_public_key33);
   tcase_add_test(tc, test_zkp_ecdsa_get_public_key65);
   tcase_add_test(tc, test_zkp_ecdsa_recover_pub_from_sig);
+  tcase_add_test(tc, test_zkp_ecdsa_sign_digest);
   tcase_add_test(tc, test_zkp_ecdsa_verify_digest);
   suite_add_tcase(s, tc);
 
