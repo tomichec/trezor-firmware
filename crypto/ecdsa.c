@@ -631,6 +631,11 @@ int ecdh_multiply(const ecdsa_curve *curve, const uint8_t *priv_key,
 
   bignum256 k = {0};
   bn_read_be(priv_key, &k);
+  if (bn_is_zero(&k) || !bn_is_less(&k, &curve->order)) {
+    // Invalid private key.
+    return 2;
+  }
+
   point_multiply(curve, &k, &point, &point);
   memzero(&k, sizeof(k));
 
@@ -711,8 +716,8 @@ int ecdsa_sign_digest(const ecdsa_curve *curve, const uint8_t *priv_key,
     }
 
     bn_read_be(priv_key, s);
-    if (bn_is_zero(s)) {
-      // Using an all-zero private key is most likely an indication of a bug.
+    if (bn_is_zero(s) || !bn_is_less(s, &curve->order)) {
+      // Invalid private key.
       return 2;
     }
 
@@ -766,26 +771,39 @@ int ecdsa_sign_digest(const ecdsa_curve *curve, const uint8_t *priv_key,
   return -1;
 }
 
-void ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
-                            uint8_t *pub_key) {
+int ecdsa_get_public_key33(const ecdsa_curve *curve, const uint8_t *priv_key,
+                           uint8_t *pub_key) {
   curve_point R = {0};
   bignum256 k = {0};
 
   bn_read_be(priv_key, &k);
+  if (bn_is_zero(&k) || !bn_is_less(&k, &curve->order)) {
+    // Invalid private key.
+    memzero(pub_key, 33);
+    return -1;
+  }
+
   // compute k*G
   scalar_multiply(curve, &k, &R);
   pub_key[0] = 0x02 | (R.y.val[0] & 0x01);
   bn_write_be(&R.x, pub_key + 1);
   memzero(&R, sizeof(R));
   memzero(&k, sizeof(k));
+  return 0;
 }
 
-void ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
-                            uint8_t *pub_key) {
+int ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
+                           uint8_t *pub_key) {
   curve_point R = {0};
   bignum256 k = {0};
 
   bn_read_be(priv_key, &k);
+  if (bn_is_zero(&k) || !bn_is_less(&k, &curve->order)) {
+    // Invalid private key.
+    memzero(pub_key, 65);
+    return -1;
+  }
+
   // compute k*G
   scalar_multiply(curve, &k, &R);
   pub_key[0] = 0x04;
@@ -793,6 +811,7 @@ void ecdsa_get_public_key65(const ecdsa_curve *curve, const uint8_t *priv_key,
   bn_write_be(&R.y, pub_key + 33);
   memzero(&R, sizeof(R));
   memzero(&k, sizeof(k));
+  return 0;
 }
 
 int ecdsa_uncompress_pubkey(const ecdsa_curve *curve, const uint8_t *pub_key,
