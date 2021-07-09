@@ -28,7 +28,13 @@ void fsm_msgLiskGetAddress(const LiskGetAddress *msg) {
                                     msg->address_n_count, NULL);
   if (!node) return;
 
-  hdnode_fill_public_key(node);
+  if (hdnode_fill_public_key(node) != 0) {
+    fsm_sendFailure(FailureType_Failure_ProcessError,
+                    _("Failed to derive public key"));
+    layoutHome();
+    return;
+  }
+
   lisk_get_address_from_public_key(&node->public_key[1], resp->address);
 
   if (msg->has_show_display && msg->show_display) {
@@ -55,7 +61,12 @@ void fsm_msgLiskGetPublicKey(const LiskGetPublicKey *msg) {
                                     msg->address_n_count, NULL);
   if (!node) return;
 
-  hdnode_fill_public_key(node);
+  if (hdnode_fill_public_key(node) != 0) {
+    fsm_sendFailure(FailureType_Failure_ProcessError,
+                    _("Failed to derive public key"));
+    layoutHome();
+    return;
+  }
 
   resp->public_key.size = 32;
 
@@ -87,7 +98,12 @@ void fsm_msgLiskSignMessage(const LiskSignMessage *msg) {
                                     msg->address_n_count, NULL);
   if (!node) return;
 
-  hdnode_fill_public_key(node);
+  if (hdnode_fill_public_key(node) != 0) {
+    fsm_sendFailure(FailureType_Failure_ProcessError,
+                    _("Failed to derive public key"));
+    layoutHome();
+    return;
+  }
 
   lisk_sign_message(node, msg, resp);
 
@@ -133,7 +149,12 @@ void fsm_msgLiskSignTx(LiskSignTx *msg) {
                                     msg->address_n_count, NULL);
   if (!node) return;
 
-  hdnode_fill_public_key(node);
+  if (hdnode_fill_public_key(node) != 0) {
+    fsm_sendFailure(FailureType_Failure_ProcessError,
+                    _("Failed to derive public key"));
+    layoutHome();
+    return;
+  }
 
   lisk_sign_tx(node, msg, resp);
 

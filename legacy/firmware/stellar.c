@@ -1466,7 +1466,9 @@ const HDNode *stellar_deriveNode(const uint32_t *address_n,
     return 0;
   }
 
-  hdnode_fill_public_key(&node);
+  if (hdnode_fill_public_key(&node) != 0) {
+    return 0;
+  }
 
   return &node;
 }
