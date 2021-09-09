@@ -21,7 +21,7 @@
 
 #include "qr-code-generator/qrcodegen.h"
 
-#include "uzlib.h"
+#include "lib/uzlib/uzlib.h"
 
 #include "common.h"
 #include "display.h"
