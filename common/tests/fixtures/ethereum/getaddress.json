@@ -6,7 +6,7 @@
     "tests": [
         {
             "parameters": {
-                "path": "44'/60'/0'"
+                "path": "m/44'/60'/0'"
             },
             "result": {
                 "address": "0xdA0b608bdb1a4A154325C854607c68950b4F1a34"
@@ -14,7 +14,7 @@
         },
         {
             "parameters": {
-                "path": "44'/60'/100'"
+                "path": "m/44'/60'/100'"
             },
             "result": {
                 "address": "0x93Fb0Ff84F5BB6E7b6a9835C7AA6dE7a76794266"
@@ -22,7 +22,7 @@
         },
         {
             "parameters": {
-                "path": "44'/60'/0'/0/0"
+                "path": "m/44'/60'/0'/0/0"
             },
             "result": {
                 "address": "0x73d0385F4d8E00C5e6504C6030F47BF6212736A8"
@@ -30,7 +30,7 @@
         },
         {
             "parameters": {
-                "path": "44'/60'/0'/0/100"
+                "path": "m/44'/60'/0'/0/100"
             },
             "result": {
                 "address": "0x1e6E3708a059aEa1241a81c7aAe84b6CDbC54d59"
@@ -39,7 +39,7 @@
         {
             "name": "ETC",
             "parameters": {
-                "path": "44'/61'/0'/0/0"
+                "path": "m/44'/61'/0'/0/0"
             },
             "result": {
                 "address": "0xF410e37E9C8BCf8CF319c84Ae9dCEbe057804a04"
@@ -48,7 +48,7 @@
         {
             "name": "GoChain",
             "parameters": {
-                "path": "44'/6060'/0'/0/0"
+                "path": "m/44'/6060'/0'/0/0"
             },
             "result": {
                 "address": "0xA26a450ef46a5f11a510eBA2119A3236fa0Aca92"
@@ -57,7 +57,7 @@
         {
             "name": "Wanchain",
             "parameters": {
-                "path": "44'/5718350'/0'/0/0"
+                "path": "m/44'/5718350'/0'/0/0"
             },
             "result": {
                 "address": "0xe432a7533D689ceed00B7EE91d9368b8A1693bD2"

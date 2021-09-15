@@ -26,8 +26,9 @@ pytestmark = [pytest.mark.altcoin, pytest.mark.ethereum]
 
 @parametrize_using_common_fixtures("ethereum/getpublickey.json")
 def test_ethereum_getpublickey(client, parameters, result):
-    res = ethereum.get_public_node(client, parse_path(parameters["path"]))
-    assert res.node.depth == len(parameters["path"].split("/"))
+    path = parse_path(parameters["path"])
+    res = ethereum.get_public_node(client, path)
+    assert res.node.depth == len(path)
     assert res.node.fingerprint == int(result["fingerprint"], 16)
     assert res.node.child_num == int(result["child_num"], 16)
     assert res.node.chain_code.hex() == result["chain_code"]
