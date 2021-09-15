@@ -19,8 +19,8 @@
             },
             "result": {
                 "sig_v": 1,
-                "sig_r_hex": "2ceeaabc994fbce2fbd66551f9d48fc711c8db2a12e93779eeddede11e41f636",
-                "sig_s_hex": "2db4a9ecc73da91206f84397ae9287a399076fdc01ed7f3c6554b1c57c39bf8c"
+                "sig_r": "2ceeaabc994fbce2fbd66551f9d48fc711c8db2a12e93779eeddede11e41f636",
+                "sig_s": "2db4a9ecc73da91206f84397ae9287a399076fdc01ed7f3c6554b1c57c39bf8c"
             }
         },
         {
@@ -38,8 +38,8 @@
             },
             "result": {
                 "sig_v": 0,
-                "sig_r_hex": "8e4361e40e76a7cab17e0a982724bbeaf5079cd02d50c20d431ba7dde2404ea4",
-                "sig_s_hex": "411930f091bb508e593e22a9ee45bd4d9eeb504ac398123aec889d5951bdebc3"
+                "sig_r": "8e4361e40e76a7cab17e0a982724bbeaf5079cd02d50c20d431ba7dde2404ea4",
+                "sig_s": "411930f091bb508e593e22a9ee45bd4d9eeb504ac398123aec889d5951bdebc3"
             }
         },
         {
@@ -57,8 +57,8 @@
             },
             "result": {
                 "sig_v": 0,
-                "sig_r_hex": "2e4f4c0e7c4e51270b891480060712e9d3bcab01e8ad0fadf2dfddd71504ca94",
-                "sig_s_hex": "2599beb32757a144dedc82b79153c21269c9939a9245342bcf35764115b62bc1"
+                "sig_r": "2e4f4c0e7c4e51270b891480060712e9d3bcab01e8ad0fadf2dfddd71504ca94",
+                "sig_s": "2599beb32757a144dedc82b79153c21269c9939a9245342bcf35764115b62bc1"
             }
         },
         {
@@ -77,8 +77,8 @@
             },
             "result": {
                 "sig_v": 1,
-                "sig_r_hex": "94d67bacb7966f881339d91103f5d738d9c491fff4c01a6513c554ab15e86cc0",
-                "sig_s_hex": "405bd19a7bf4ae62d41fcb7844e36c786b106b456185c3d0877a7ce7eab6c751"
+                "sig_r": "94d67bacb7966f881339d91103f5d738d9c491fff4c01a6513c554ab15e86cc0",
+                "sig_s": "405bd19a7bf4ae62d41fcb7844e36c786b106b456185c3d0877a7ce7eab6c751"
             }
         },
         {
@@ -97,8 +97,8 @@
             },
             "result": {
                 "sig_v": 1,
-                "sig_r_hex": "e631b56bcc596844cb8686b2046e36cf33634aa396e7e1ea94a97aac02c18bda",
-                "sig_s_hex": "399bff8752539176c4b2f1d5d2a8f6029f79841d28802149ab339a033ffe4c1f"
+                "sig_r": "e631b56bcc596844cb8686b2046e36cf33634aa396e7e1ea94a97aac02c18bda",
+                "sig_s": "399bff8752539176c4b2f1d5d2a8f6029f79841d28802149ab339a033ffe4c1f"
             }
         },
         {
@@ -117,8 +117,8 @@
             },
             "result": {
                 "sig_v": 0,
-                "sig_r_hex": "07f8c967227c5a190cb90525c3387691a426fe61f8e0503274280724060ea95c",
-                "sig_s_hex": "0bf83eaf74e24aa9146b23e06f9edec6e25acb81d3830e8d146b9e7b6923ad1e"
+                "sig_r": "07f8c967227c5a190cb90525c3387691a426fe61f8e0503274280724060ea95c",
+                "sig_s": "0bf83eaf74e24aa9146b23e06f9edec6e25acb81d3830e8d146b9e7b6923ad1e"
             }
         }
     ]

@@ -73,8 +73,8 @@ def test_signtx_eip1559(client, parameters, result):
             data=bytes.fromhex(parameters["data"]),
         )
 
-    assert sig_r.hex() == result["sig_r_hex"]
-    assert sig_s.hex() == result["sig_s_hex"]
+    assert sig_r.hex() == result["sig_r"]
+    assert sig_s.hex() == result["sig_s"]
     assert sig_v == result["sig_v"]
 
 
