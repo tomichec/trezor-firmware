@@ -10,7 +10,9 @@ use crate::{
 };
 
 pub fn try_or_raise<T>(func: impl FnOnce() -> Result<T, Error>) -> T {
-    func().unwrap_or_else(|err| raise_exception(err))
+    func().unwrap_or_else(|err| unsafe {
+        raise_exception(err);
+    })
 }
 
 pub fn try_with_kwargs(kwargs: *const Map, func: impl FnOnce(&Map) -> Result<Obj, Error>) -> Obj {
