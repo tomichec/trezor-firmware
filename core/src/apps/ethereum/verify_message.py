@@ -6,7 +6,7 @@ from trezor.ui.layouts import confirm_signverify
 
 from apps.common.signverify import decode_message
 
-from .address import address_from_bytes, bytes_from_address
+from .helpers import address_from_bytes, bytes_from_address
 from .sign_message import message_digest
 
 if False:
@@ -33,6 +33,8 @@ async def verify_message(ctx: Context, msg: EthereumVerifyMessage) -> Success:
 
     address = address_from_bytes(address_bytes)
 
-    await confirm_signverify(ctx, "ETH", decode_message(msg.message), address=address)
+    await confirm_signverify(
+        ctx, "ETH", decode_message(msg.message), address=address, verify=True
+    )
 
     return Success(message="Message verified")

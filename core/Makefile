@@ -79,7 +79,7 @@ test: ## run unit tests
 	cd tests ; ./run_tests.sh $(TESTOPTS)
 
 test_rust: ## run rs unit tests
-	cd embed/rust ; cargo test -- --test-threads=1
+	cd embed/rust ; cargo test --no-default-features --features model_t$(shell echo -e $(TREZOR_MODEL) | tr "T" "t"),test,ui,ui_debug -- --test-threads=1
 
 test_emu: ## run selected device tests from python-trezor
 	$(EMU_TEST) $(PYTEST) $(TESTPATH)/device_tests $(TESTOPTS)
@@ -115,8 +115,12 @@ mypy:
 		src/apps/ethereum \
 		src/apps/management \
 		src/apps/misc \
+		src/apps/stellar \
 		src/apps/webauthn \
 		src/trezor/ui
+
+clippy:
+	cd embed/rust ; cargo clippy
 
 ## code generation:
 
